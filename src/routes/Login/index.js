@@ -5,6 +5,7 @@ import AuthStore from "../../store/AuthStore";
 import { apiStatus } from "../../constants/ApiStatusConstants";
 import { setUserId } from "../../utils/StorageUtils";
 import { showBottomCenterToast } from "../../utils/ToastUtils";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const authService = new AuthService();
@@ -22,9 +23,17 @@ const LoginPage = () => {
     apiStatus.API_INITIAL
   );
 
+  const navigate = useNavigate();
+
+  const goToHomePage = () => {
+    navigate('/');
+  };
+
+
   const setApiResponse = (response) => {
-    setUserId(response.userId);
-    authStore.setUserId(response.userId);
+    setUserId(response.userid);
+    authStore.setUserId(response.userid);
+    goToHomePage();
   };
 
   const loginApi = (requestObject) => {

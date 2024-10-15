@@ -19,6 +19,7 @@ const Login = ({ onClickLogin, onClickRegister }) => {
 
   const [lastName, setLastName] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
   const renderIllustration = () => (
     <div className="illustration-container">
       <img
@@ -96,7 +97,8 @@ const Login = ({ onClickLogin, onClickRegister }) => {
         <div className="label-tag-container">
           <label>Password</label>
           <input
-            type={"password"}
+           
+            type={showPassword?"text":"password"}
             value={password}
             onChange={onChangePassword}
           />

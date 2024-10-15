@@ -6,8 +6,11 @@ const backendBaseUrl = Config.BACKEND_BASE_URL;
 class AuthService {
   login = async (requestObject, onSuccess, onFailure) => {
     try {
-      const response = await fetch(`${backendBaseUrl}/login`, {
+      const response = await fetch(`${backendBaseUrl}login`, {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(requestObject)
       });
 
@@ -17,7 +20,7 @@ class AuthService {
 
       const result = await response.json();
 
-      if (result.respCode === apiResponseConstants.OK) {
+      if (result.userid) {
         onSuccess(result);
       } else onFailure(result.respMessage);
     } catch (error) {
@@ -27,18 +30,19 @@ class AuthService {
 
   register = async (requestObject, onSuccess, onFailure) => {
     try {
-      const response = await fetch(`${backendBaseUrl}/signup`, {
+      const response = await fetch(`${backendBaseUrl}signup`, {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(requestObject)
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      
 
       const result = await response.json();
 
-      if (result.respCode === apiResponseConstants.OK) {
+      if (result.userid) {
         onSuccess(result);
       } else onFailure(result.respMessage);
     } catch (error) {
